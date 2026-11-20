@@ -1,0 +1,6 @@
+pinecone
+python-dotenv
+langchain-ollama
+fastapi
+uvicorn
+mcp<2
