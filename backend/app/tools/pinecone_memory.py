@@ -10,18 +10,14 @@ pc = Pinecone(api_key=settings.PINECONE_API_KEY)
 
 # 2. Professional check: Only create if it does NOT exist
 if settings.PINECONE_INDEX_NAME not in pc.list_indexes().names():
-    print(f"Creating index {settings.PINECONE_INDEX_NAME}...")
     pc.create_index(
         name=settings.PINECONE_INDEX_NAME,
         dimension=768,
-        metric="cosine",  # you missed this, always add it
+        metric="cosine",
         spec=ServerlessSpec(cloud='aws', region='us-east-1')
     )
     while not pc.describe_index(settings.PINECONE_INDEX_NAME).status['ready']:
         time.sleep(1)
-    print("Index ready!")
-else:
-    print(f"Index {settings.PINECONE_INDEX_NAME} already exists, using it.")
 
 index = pc.Index(settings.PINECONE_INDEX_NAME)
 

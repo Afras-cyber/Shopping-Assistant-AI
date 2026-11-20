@@ -151,7 +151,7 @@ EMBED_MODEL=nomic-embed-text
 Load products into Pinecone (only once):
 
 ```bash
-python ingest_pinecone.py
+python scripts/ingest_pinecone.py
 ```
 
 You should see: `Ingest success`
@@ -176,7 +176,7 @@ Open a new terminal:
 
 ```bash
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 

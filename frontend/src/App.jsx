@@ -28,20 +28,20 @@ export default function App() {
   // Move the progress indicator through the four agents while waiting.
   useEffect(() => {
     if (!loading) return;
-    setStep(0);
     const id = setInterval(() => setStep((s) => Math.min(s + 1, AGENTS.length - 1)), 2500);
     return () => clearInterval(id);
   }, [loading]);
 
   async function handleAsk() {
     if (!topic.trim() || loading) return;
+    setStep(0);
     setLoading(true);
     setAnswer(null);
     setError("");
     try {
       const data = await askShop(topic);
       setAnswer(data);
-    } catch (e) {
+    } catch {
       setError("Can't reach the backend. Start it on port 8002, then try again.");
     }
     setLoading(false);

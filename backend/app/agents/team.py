@@ -21,28 +21,21 @@ class Notebook(TypedDict):
     feedback:str
 
 def planner(state:Notebook):
-    print("---- Planner ----\n")
     prompt = f"Extract Budget and Need from {state["topic"]}. Reply in 1 line"
     result = llm.invoke([{"role": "user", "content": prompt}])
     budget = 150000
     for word in state['topic'].replace(".","").split():
         if word.isdigit() and int(word) > 1000:
             budget = int(word)
-    print(f"Planner found budget : {budget}")
-    print("---- End Planner ----")
     return {"plan":result.content, "budget":budget}
 
 def researcher(state:Notebook):
-    print("---- Research ----\n")
     research = _search_product_logic(state['topic'])
-    print("---- End Research ----")
     return {"research":research}
 
 
 def writer(state:Notebook):
-    print("---- Writer ----\n")
     attempts = state.get("attempts", 0) + 1
-    print(f"\nWriter attempt : {attempts}\n")
     feedback = state.get("feedback", "")
     prompt = f"""Recommend products for: {state['topic']}
 Budget: {state['budget']} LKR
@@ -57,7 +50,6 @@ RULE: Recommend only products UNDER budget. Must include price in LKR + total wi
     return {"recommendation": result.content, "attempts": attempts}
 
 def critic(state: Notebook):
-    print("---- Critic ----\n")
     text = state.get("recommendation",'')
     hasLKR = "LKR" in text
     sentence_count = text.count(".") + text.count("!") + text.count("?")

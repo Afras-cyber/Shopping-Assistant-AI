@@ -5,15 +5,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from app.tools.pinecone_memory import search_products
 
-# Try new name first, fall back to old name
-try:
-    from mcp.server.fastmcp import FastMCP
-    mcp = FastMCP("shop-tools")
-    print("Using MCP 1.x FastMCP")
-except ImportError:
-    from mcp.server.mcpserver import MCPServer
-    mcp = MCPServer("shop-tools")
-    print("Using MCP 2.x MCPServer")
+from mcp.server.fastmcp import FastMCP
+mcp = FastMCP("shop-tools")
 
 def _search_product_logic(query: str) -> str:
     """Real logic, no decorator, so we can test it easily"""
