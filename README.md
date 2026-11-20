@@ -1,35 +1,29 @@
-shopping-assistant-pro/
-├── README.md                  - What is this project, how to run, demo video link
-├── .gitignore                 - Never push .env, __pycache__, node_modules
-├── backend/
-│   ├── requirements.txt       - Python packages
-│   ├── .env.example           - Example keys, NO real keys inside
-│   ├── .env                   - YOUR real keys, never pushed
-│   ├── app/
-│   │   ├── main.py            - FastAPI app, only starts server, no logic
-│   │   ├── core/
-│   │   │   └── config.py      - Loads API keys from .env, one place for all settings
-│   │   ├── api/
-│   │   │   └── shop.py        - API routes: POST /shop, GET /health
-│   │   ├── agents/
-│   │   │   └── team.py        - Your Planner, Researcher, Writer, Critic team
-│   │   ├── tools/
-│   │   │   └── pinecone_memory.py - Only Pinecone code, search + upload
-│   │   ├── mcp_server/
-│   │   │   └── server.py      - MCP server, will do in Brick 2
-│   │   └── models/
-│   │       └── schemas.py     - Pydantic models: ShopRequest, ShopResponse
-│   ├── scripts/
-│   │   └── ingest_pinecone.py - One-time script to put products into Pinecone
-│   └── tests/
-│       └── test_team.py       - 1 test: budget check
-└── frontend/
-    ├── package.json
-    ├── vite.config.js
-    └── src/
-        ├── App.jsx             - Main page
-        ├── api/
-        │   └── shop.js         - Only code that calls backend
-        └── components/
-            ├── ChatBox.jsx     - Input box
-            └── AnswerCard.jsx  - Shows recommendation# Shopping-Assistant-AI
+# 🛒 Shopping Assistant Pro
+
+A full-stack Agentic AI shopping assistant.
+
+Type what you want to buy and your budget. A team of 4 AI agents works together to research products and give you a final recommendation with price + VAT + budget check.
+
+Built with Vite + React + FastAPI + LangGraph + Pinecone + MCP.
+
+![Stack](https://img.shields.io/badge/Frontend-Vite%20%2B%20React-blue)
+![Backend](https://img.shields.io/badge/Backend-FastAPI-green)
+![Agents](https://img.shields.io/badge/Agents-LangGraph-orange)
+![Memory](https://img.shields.io/badge/Memory-Pinecone-0EA5E9)
+![Tools](https://img.shields.io/badge/Tools-MCP-purple)
+
+---
+
+## ✨ What It Does
+
+Example:
+> "I need a laptop for coding, budget 150000 LKR"
+
+Result:
+- Planner understands your need and budget
+- Researcher searches products in Pinecone via MCP
+- Writer drafts a recommendation
+- Critic checks it and sends it back if it is wrong
+- Final recommendation shows in the website, not in the terminal
+
+## 🧠 How The AI Team Works
